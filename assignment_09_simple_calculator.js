@@ -73,5 +73,135 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
+
+/**
+ * Performs addition of two numbers.
+ */
+function add(a, b) {
+  return a + b;
+}
+
+/**
+ * Performs subtraction of two numbers.
+ */
+function subtract(a, b) {
+  return a - b;
+}
+
+/**
+ * Performs multiplication of two numbers.
+ */
+function multiply(a, b) {
+  return a * b;
+}
+
+/**
+ * Performs division of two numbers.
+ */
+function divide(a, b) {
+  return a / b;
+}
+
+/**
+ * Performs modulus operation.
+ */
+function modulus(a, b) {
+  return a % b;
+}
+
+/**
+ * Performs exponentiation (a raised to power b).
+ */
+function power(a, b) {
+  return a ** b;
+}
+
+/**
+ * Displays the main menu options.
+ */
+function printMenu() {
+  console.log('\n============================');
+  console.log('     SIMPLE CALCULATOR');
+  console.log('============================');
+  console.log('1. Addition');
+  console.log('2. Subtraction');
+  console.log('3. Multiplication');
+  console.log('4. Division');
+  console.log('5. Modulus');
+  console.log('6. Exponentiation');
+  console.log('7. Quit');
+}
+
+/**
+ * Main execution function containing the calculator interactive loop.
+ */
+function main() {
+  let running = true;
+
+  while (running) {
+    printMenu();
+    const choice = readlineSync.question('Select an operation (1-7): ');
+
+    const option = choice.trim();
+
+    if (option === '7') {
+      console.log('Goodbye!');
+      running = false;
+      break;
+    }
+
+    if (!['1', '2', '3', '4', '5', '6'].includes(option)) {
+      console.log('Invalid choice. Please enter a number between 1 and 7.');
+      continue;
+    }
+
+    const num1 = readlineSync.questionFloat('Enter first number : ');
+    const num2 = readlineSync.questionFloat('Enter second number: ');
+
+    let result;
+    let operator;
+
+    switch (option) {
+      case '1':
+        result = add(num1, num2);
+        operator = '+';
+        break;
+      case '2':
+        result = subtract(num1, num2);
+        operator = '-';
+        break;
+      case '3':
+        result = multiply(num1, num2);
+        operator = '*';
+        break;
+      case '4':
+        if (num2 === 0) {
+          console.log('Error: Cannot divide by zero.');
+          continue;
+        }
+        result = divide(num1, num2);
+        operator = '/';
+        break;
+      case '5':
+        if (num2 === 0) {
+          console.log('Error: Cannot perform modulus by zero.');
+          continue;
+        }
+        result = modulus(num1, num2);
+        operator = '%';
+        break;
+      case '6':
+        result = power(num1, num2);
+        operator = '**';
+        break;
+    }
+
+    console.log(`Result: ${num1} ${operator} ${num2} = ${result.toFixed(2)}`);
+  }
+}
+
+// Run the program
+main();
 
 
