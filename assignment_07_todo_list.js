@@ -80,5 +80,106 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
+
+// Array to store all tasks
+const tasks = [];
+
+/**
+ * Feature 1: Adds a new task to the list.
+ */
+function addTask() {
+  const task = readlineSync.question('Enter task: ');
+  
+  if (task.trim() === '') {
+    console.log('Task cannot be empty.');
+    return;
+  }
+
+  tasks.push(task);
+  console.log(`Task added: "${task}"`);
+}
+
+/**
+ * Feature 2: Displays all current tasks numbered from 1.
+ */
+function viewTasks() {
+  if (tasks.length === 0) {
+    console.log('\nYour to-do list is empty.');
+    return;
+  }
+
+  console.log('\nYour Tasks:');
+  for (let i = 0; i < tasks.length; i++) {
+    console.log(`${i + 1}. ${tasks[i]}`);
+  }
+}
+
+/**
+ * Feature 3: Deletes a task selected by its 1-based index.
+ */
+function deleteTask() {
+  if (tasks.length === 0) {
+    console.log('\nYour to-do list is empty. Nothing to delete.');
+    return;
+  }
+
+  viewTasks();
+  const taskNumber = readlineSync.questionInt('Enter task number to delete: ');
+
+  if (taskNumber < 1 || taskNumber > tasks.length) {
+    console.log('Error: Invalid task number.');
+    return;
+  }
+
+  const removed = tasks.splice(taskNumber - 1, 1);
+  console.log(`Task "${removed[0]}" has been removed.`);
+}
+
+/**
+ * Displays the menu options.
+ */
+function printMenu() {
+  console.log('\n============================');
+  console.log('     TO-DO LIST MENU');
+  console.log('============================');
+  console.log('1. Add task');
+  console.log('2. View tasks');
+  console.log('3. Delete task');
+  console.log('4. Quit');
+}
+
+/**
+ * Main function containing the menu loop.
+ */
+function main() {
+  let running = true;
+
+  while (running) {
+    printMenu();
+    const choice = readlineSync.question('Enter your choice (1-4): ');
+
+    switch (choice.trim()) {
+      case '1':
+        addTask();
+        break;
+      case '2':
+        viewTasks();
+        break;
+      case '3':
+        deleteTask();
+        break;
+      case '4':
+        console.log('Goodbye!');
+        running = false;
+        break;
+      default:
+        console.log('Invalid choice. Please enter a number between 1 and 4.');
+    }
+  }
+}
+
+// Run the program
+main();
 
 
